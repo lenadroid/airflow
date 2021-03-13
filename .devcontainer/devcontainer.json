@@ -3,32 +3,32 @@
     "dockerComposeFile": "docker-compose.yaml",
 	"forwardPorts": [ 8080, 8080 ],
 
-    "workspaceFolder": "/",
+    "workspaceFolder": "/workspace",
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},
 
-    //"initializeCommand": "mkdir ./dags ./logs ./plugins && echo -e \"AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0\" > .env",
+    "initializeCommand": "mkdir ./dags ./logs ./plugins && echo -e \"AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0\" > .env && docker-compose up airflow-init",
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python"
 	],
 
-    "service": "airflow-init",
+    "service": "airflow-webserver",
 
-    //"runServices": [
-    //    "postgres",
-    //    "redis",
-    //    "aiflow-scheduler",
-    //    "airflow-webserver",
-    //    "flower"
-    //],
+    "runServices": [
+       "postgres",
+       "redis",
+       "aiflow-scheduler",
+       "airflow-webserver",
+       "flower"
+    ],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "airflow initdb",
+	//"postCreateCommand": "docker-compose up airflow-init",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
