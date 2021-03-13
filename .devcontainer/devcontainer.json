@@ -10,20 +10,22 @@
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},
 
+    //"initializeCommand": "mkdir ./dags ./logs ./plugins && echo -e \"AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0\" > .env",
+
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python"
 	],
 
-    "service": "airflow-webserver",
+    "service": "airflow-init",
 
-    "runServices": [
-        "postgres",
-        "redis",
-        "aiflow-scheduler",
-        "airflow-webserver",
-        "flower"
-    ],
+    //"runServices": [
+    //    "postgres",
+    //    "redis",
+    //    "aiflow-scheduler",
+    //    "airflow-webserver",
+    //    "flower"
+    //],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "airflow initdb",
